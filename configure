@@ -4369,7 +4369,9 @@ probe_cc(){
     unset _depflags _DEPCMD _DEPFLAGS
     _flags_filter=echo
 
-    if $_cc --version 2>&1 | grep -q '^GNU assembler'; then
+    if $_cc --help 2>&1 | grep -q '^llvm-as'; then
+        true # no-op to avoid reading stdin in following checks
+    elif $_cc --version 2>&1 | grep -q '^GNU assembler'; then
         true # no-op to avoid reading stdin in following checks
     elif $_cc -v 2>&1 | grep -q '^gcc.*LLVM'; then
         _type=llvm_gcc
