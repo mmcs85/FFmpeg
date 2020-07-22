@@ -7,11 +7,6 @@ ROOT_DIR=$PWD
 BUILD_DIR=$ROOT_DIR/build
 EM_TOOLCHAIN_FILE=/emsdk_portable/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 PTHREAD_FLAGS='-s USE_PTHREADS=1'
-FILTERS = aresample scale crop overlay hstack vstack
-DEMUXERS = matroska mp3 image2 gif concat
-DECODERS = h264 mp3 aac pcm_s16le mjpeg png gif
-MUXERS = mp4
-ENCODERS = libx264 libmp3lame aac
 
 export CFLAGS=$PTHREAD_FLAGS
 export CPPFLAGS=$PTHREAD_FLAGS
@@ -84,11 +79,28 @@ configure_ffmpeg() {
     --enable-avfilter \
     --enable-swresample \
     --enable-swscale \
-    $(addprefix --enable-decoder=,$(DECODERS)) \
-    $(addprefix --enable-demuxer=,$(DEMUXERS)) \
-    $(addprefix --enable-filter=,$(FILTERS)) \
-    $(addprefix --enable-encoder=,$(ENCODERS)) \
-    $(addprefix --enable-muxer=,$(MUXERS)) \
+    --enable-filter=aresample \
+    --enable-filter=scale \
+    --enable-filter=crop \
+    --enable-filter=overlay \
+    --enable-filter=hstack \
+    --enable-filter=vstack \
+    --enable-demuxer=matroska \
+    --enable-demuxer=mp3 \
+    --enable-demuxer=image2 \
+    --enable-demuxer=gif \
+    --enable-demuxer=concat \
+    --enable-decoder=h264 \
+    --enable-decoder=mp3 \
+    --enable-decoder=aac \
+    --enable-decoder=pcm_s16le \
+    --enable-decoder=mjpeg \
+    --enable-decoder=png \
+    --enable-decoder=gif \
+    --enable-muxer=mp4 \
+    --enable-encoder=libx264 \
+    --enable-encoder=libmp3lame \
+    --enable-encoder=aac \
     --enable-gpl \
     --enable-libx264 \
     --enable-libmp3lame \
