@@ -63,33 +63,46 @@ configure_ffmpeg() {
     --enable-avfilter \
     --enable-swresample \
     --enable-swscale \
+    \
     --enable-filter=aresample \
     --enable-filter=scale \
     --enable-filter=crop \
     --enable-filter=overlay \
     --enable-filter=hstack \
     --enable-filter=vstack \
-    --enable-parser=png \
+    \
     --enable-parser=h264 \
+    --enable-parser=aac \
     --enable-parser=mpeg4video \
-    --enable-parser=mpegaudio \
-    --enable-parser=mpegvideo \
+    --enable-parser=mjpeg \
+    \
     --enable-demuxer=mov \
+    --enable-demuxer=aac \
     --enable-demuxer=mp3 \
     --enable-demuxer=image2 \
     --enable-demuxer=gif \
     --enable-demuxer=concat \
+    \
     --enable-decoder=h264 \
-    --enable-decoder=mpeg4 \
-    --enable-decoder=mpeg4video \
+    --enable-decoder=h264_cuvid \
+    --enable-decoder=h264_mediacodec \
+    --enable-decoder=h264_mmal \
+    --enable-decoder=h264_qsv \
+    --enable-decoder=h264_rkmpp \
+    --enable-decoder=h264_v4l2m2m \
     --enable-decoder=mp3 \
     --enable-decoder=aac \
     --enable-decoder=mjpeg \
     --enable-decoder=png \
     --enable-decoder=gif \
+    \
     --enable-muxer=mp4 \
+    --enable-muxer=null \
+    \
     --enable-encoder=libx264 \
     --enable-encoder=aac \
+    \
+    --enable-protocol=file \
     --enable-gpl \
     --enable-libx264 \
     --enable-libmp3lame \
@@ -125,7 +138,7 @@ build_ffmpegjs() {
   emcc \
     -I. -I./fftools -I$BUILD_DIR/include \
     -Llibavcodec -Llibavdevice -Llibavfilter -Llibavformat -Llibavresample -Llibavutil -Llibpostproc -Llibswscale -Llibswresample -Llibpostproc -L${BUILD_DIR}/lib \
-    -Qunused-arguments -Oz \
+    -Qunused-arguments -O3 \
     -o $2 fftools/ffmpeg_opt.c fftools/ffmpeg_filter.c fftools/ffmpeg_hw.c fftools/cmdutils.c fftools/ffmpeg.c \
     -lavdevice -lavfilter -lavformat -lavcodec -lswresample -lswscale -lavutil -lpostproc -lm -lx264 -lz -lmp3lame \
     -Wno-deprecated-declarations -Wno-pointer-sign -Wno-implicit-int-float-conversion -Wno-switch -Wno-parentheses \
