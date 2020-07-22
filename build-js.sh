@@ -104,7 +104,7 @@ configure_ffmpeg() {
     --enable-gpl \
     --enable-libx264 \
     --enable-libmp3lame \
-    --enable-cross-compile \    
+    --enable-cross-compile \
     --disable-x86asm \
     --disable-inline-asm \
     --disable-doc \
