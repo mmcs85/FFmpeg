@@ -106,7 +106,7 @@ configure_ffmpeg() {
     --enable-filter=anull,aresample,scale,crop,overlay,hstack,vstack \
     --enable-parser=h264,aac,mpeg4video,mjpeg \
     --enable-demuxer=mov,aac,mp3,image2,gif,concat \
-    --enable-decoder=h264,h264_cuvid,h264_mediacodec,h264_mmal,h264_qsv,h264_rkmpp,h264_v4l2m2m,mp3,aac,mjpeg,png,gif \
+    --enable-decoder=h264,mp3,aac,mjpeg,png,gif \
     --enable-muxer=mp4 \
     --enable-encoder=libx264,aac \
     \
@@ -147,7 +147,7 @@ build_ffmpegjs() {
   emcc \
     -I. -I./fftools -I$BUILD_DIR/include \
     -Llibavcodec -Llibavdevice -Llibavfilter -Llibavformat -Llibavresample -Llibavutil -Llibpostproc -Llibswscale -Llibswresample -Llibpostproc -L${BUILD_DIR}/lib \
-    -Qunused-arguments -O3 \
+    -Qunused-arguments -Oz \
     -o $2 fftools/ffmpeg_opt.c fftools/ffmpeg_filter.c fftools/ffmpeg_hw.c fftools/cmdutils.c fftools/ffmpeg.c \
     -lavdevice -lavfilter -lavformat -lavcodec -lswresample -lswscale -lavutil -lpostproc -lm -lx264 -lz -lmp3lame \
     -Wno-deprecated-declarations -Wno-pointer-sign -Wno-implicit-int-float-conversion -Wno-switch -Wno-parentheses \
