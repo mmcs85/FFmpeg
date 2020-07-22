@@ -7,6 +7,12 @@ ROOT_DIR=$PWD
 BUILD_DIR=$ROOT_DIR/build
 EM_TOOLCHAIN_FILE=/emsdk_portable/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 PTHREAD_FLAGS='-s USE_PTHREADS=1'
+FILTERS = aresample scale crop overlay hstack vstack
+DEMUXERS = matroska mp3 image2 gif concat
+DECODERS = h264 mp3 aac pcm_s16le mjpeg png gif
+MUXERS = mp4
+ENCODERS = libx264 libmp3lame aac
+
 export CFLAGS=$PTHREAD_FLAGS
 export CPPFLAGS=$PTHREAD_FLAGS
 export LDFLAGS=$PTHREAD_FLAGS
@@ -72,11 +78,21 @@ build_libmp3lame() {
 configure_ffmpeg() {
   emconfigure ./configure \
     --arch=i686 \
+    --disable-everything \
+    --enable-avcodec \
+    --enable-avformat \
+    --enable-avfilter \
+    --enable-swresample \
+    --enable-swscale \
+    $(addprefix --enable-decoder=,$(DECODERS)) \
+    $(addprefix --enable-demuxer=,$(DEMUXERS)) \
+    $(addprefix --enable-filter=,$(FILTERS)) \
+    $(addprefix --enable-encoder=,$(ENCODERS)) \
+    $(addprefix --enable-muxer=,$(MUXERS)) \
     --enable-gpl \
     --enable-libx264 \
-    --enable-libvpx \
     --enable-libmp3lame \
-    --enable-cross-compile \
+    --enable-cross-compile \    
     --disable-x86asm \
     --disable-inline-asm \
     --disable-doc \
