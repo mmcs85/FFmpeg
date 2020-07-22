@@ -56,51 +56,59 @@ build_libmp3lame() {
 
 configure_ffmpeg() {
   emconfigure ./configure \
-    --arch=i686 \
-    --disable-everything \
+    --disable-openssl \
+    --disable-xmm-clobber-test \
+    --disable-neon-clobber-test \
+    --disable-programs \
+    --disable-postproc \
+    --disable-doc \
+    --disable-htmlpages \
+    --disable-manpages \
+    --disable-podpages \
+    --disable-txtpages \
+    --disable-sndio \
+    --disable-schannel \
+    --disable-securetransport \
+    --disable-xlib \
+    --disable-cuda \
+    --disable-cuvid \
+    --disable-nvenc \
+    --disable-vaapi \
+    --disable-vdpau \
+    --disable-videotoolbox \
+    --disable-audiotoolbox \
+    --disable-appkit \
+    --disable-alsa \
+    --disable-cuda \
+    --disable-cuvid \
+    --disable-nvenc \
+    --disable-vaapi \
+    --disable-vdpau \
+    --disable-gray \
+    --disable-network \
+    --disable-postproc \
+    --disable-pixelutils \
+    --disable-encoders \
+    --disable-decoders \
+    --disable-muxers \
+    --disable-parsers \
+    --disable-bsfs \
+    --disable-protocols \
+    --disable-devices \
+    --disable-demuxers \
+    \
     --enable-avcodec \
     --enable-avformat \
     --enable-avfilter \
     --enable-swresample \
     --enable-swscale \
     \
-    --enable-filter=aresample \
-    --enable-filter=scale \
-    --enable-filter=crop \
-    --enable-filter=overlay \
-    --enable-filter=hstack \
-    --enable-filter=vstack \
-    \
-    --enable-parser=h264 \
-    --enable-parser=aac \
-    --enable-parser=mpeg4video \
-    --enable-parser=mjpeg \
-    \
-    --enable-demuxer=mov \
-    --enable-demuxer=aac \
-    --enable-demuxer=mp3 \
-    --enable-demuxer=image2 \
-    --enable-demuxer=gif \
-    --enable-demuxer=concat \
-    \
-    --enable-decoder=h264 \
-    --enable-decoder=h264_cuvid \
-    --enable-decoder=h264_mediacodec \
-    --enable-decoder=h264_mmal \
-    --enable-decoder=h264_qsv \
-    --enable-decoder=h264_rkmpp \
-    --enable-decoder=h264_v4l2m2m \
-    --enable-decoder=mp3 \
-    --enable-decoder=aac \
-    --enable-decoder=mjpeg \
-    --enable-decoder=png \
-    --enable-decoder=gif \
-    \
+    --enable-filter=anull,aresample,scale,crop,overlay,hstack,vstack \
+    --enable-parser=h264,aac,mpeg4video,mjpeg \
+    --enable-demuxer=mov,aac,mp3,image2,gif,concat \
+    --enable-decoder=h264,h264_cuvid,h264_mediacodec,h264_mmal,h264_qsv,h264_rkmpp,h264_v4l2m2m,mp3,aac,mjpeg,png,gif \
     --enable-muxer=mp4 \
-    --enable-muxer=null \
-    \
-    --enable-encoder=libx264 \
-    --enable-encoder=aac \
+    --enable-encoder=libx264,aac \
     \
     --enable-protocol=file \
     --enable-gpl \
@@ -119,6 +127,7 @@ configure_ffmpeg() {
     --extra-cflags="-I$BUILD_DIR/include" \
     --extra-cxxflags="-I$BUILD_DIR/include" \
     --extra-ldflags="-L$BUILD_DIR/lib" \
+    --arch=i686 \
     --nm="llvm-nm -g" \
     --ar=emar \
     --as=llvm-as \
